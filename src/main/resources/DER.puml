@@ -1,0 +1,103 @@
+@startuml
+
+entity "Usuarios" {
+
+}
+entity "Roles" {
+
+}
+entity "Mascotas" {
+
+}
+entity "TipoMascotas" {
+
+}
+entity "Caracteristicas" {
+
+}
+entity "Caracteristicas_x_Mascotas" {
+
+}
+entity "Duenios" {
+
+}
+entity "TipoDocumentos" {
+
+}
+entity "Contactos" {
+
+}
+entity "Asociaciones" {
+
+}
+entity "Adopciones" {
+
+}
+entity "Adoptantes" {
+
+}
+entity "Detalles" {
+
+}
+entity "Detalles_x_Adopciones" {
+
+}
+entity "Detalles_x_Adoptantes" {
+
+}
+entity "Contactos_x_Adopciones" {
+
+}
+entity "PublicacionesAprobadas" {
+
+}
+entity "Rescates" {
+
+}
+entity "RescatesSinChapita" {
+
+}
+entity "ParticipantesRescate" {
+
+}
+entity "AnimalesPerdidos" {
+
+}
+
+Usuarios ||--o{ Roles_x_Usuarios
+Roles ||--o{ Roles_x_Usuarios
+Usuarios ||--|| Roles
+
+Mascotas }o--|| TipoMascotas
+Mascotas ||--o{ Caracteristicas_x_Mascotas
+Caracteristicas ||--o{ Caracteristicas_x_Mascotas
+
+Duenios }o--|| TipoDocumentos
+Duenios ||--o{ Contactos
+Duenios ||--o{ Mascotas
+
+Asociaciones ||--o{ PublicacionesAprobadas
+Asociaciones ||--o{ Adopciones
+Asociaciones ||--o{ Adoptantes
+
+Adopciones ||--o{ Detalles_x_Adopciones
+Detalles ||--o{ Detalles_x_Adopciones
+Adopciones ||--o{ Contactos_x_Adopciones
+Contactos ||--o{ Contactos_x_Adopciones
+
+Adoptantes ||--o{ Detalles_x_Adoptantes
+Detalles ||--o{ Detalles_x_Adoptantes
+
+PublicacionesAprobadas }o--|| ParticipantesRescate
+PublicacionesAprobadas }o--|| ParticipantesRescate
+PublicacionesAprobadas }o--|| AnimalesPerdidos
+
+Rescates }o--|| ParticipantesRescate
+Rescates }o--|| AnimalesPerdidos
+
+RescatesSinChapita }o--|| ParticipantesRescate
+RescatesSinChapita }o--|| AnimalesPerdidos
+
+ParticipantesRescate }o--|| TipoDocumentos
+ParticipantesRescate }o--|| Contactos
+@enduml

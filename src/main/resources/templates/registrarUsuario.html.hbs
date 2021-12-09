@@ -1,0 +1,35 @@
+{{#partial "titulo"}}
+    <title>Registrarme</title>
+{{/partial}}
+
+{{#partial "contenido"}}
+    <section>
+        <h2 align="center">Registrarme</h2>
+        <form name="registrarUsuario-form" class="registrarUsuario-form" action="/registrarUsuario" method="post">
+            <table align="center">
+                <tr>
+                    <td>
+                        <input name="username" type="text" class="input username" placeholder="Usuario" required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input name="password" type="password" class="input password" placeholder="Contraseña" required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <input type="submit" name="submit" value="Registrar" class="button"/>
+                    </td>
+                </tr>
+                <tr>
+                	<td>
+                		<span name="errorLogin">{{errorLogin}}</span>
+                	</td>
+                </tr>
+        	</table>
+        </form>
+    </section>
+{{/partial}}
+
+{{> layout.html.hbs }}

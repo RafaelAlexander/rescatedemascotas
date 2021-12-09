@@ -1,0 +1,72 @@
+{{#partial "titulo"}}
+    <title>Registrarse Como Duenio</title>
+{{/partial}}
+
+{{#partial "contenido"}}
+        <h2 align="center">Registrarse Como Duenio</h2>
+        <h4 align="center">Complete los datos personales</h4>
+        <span name="errorLogin">{{errorLogin}}</span>
+        <form name="registrarDuenio-form" class="registrarDuenio-form formulario" action="/registrarDuenio" method="post">
+
+          <div class="form-group">
+            <label for="nombreDuenio">Nombre</label><input name="nombreDuenio" id="nombreDuenio" type="text" class="form-control" placeholder="Ingrese su nombre" required>
+          </div>
+
+          <div class="form-group">
+            <label for="apellidoDuenio">Apellido</label><input name="apellidoDuenio" id="apellidoDuenio" type="text" class="form-control" placeholder="Ingrese su apellido" required>
+          </div>
+
+           <div class="form-group">
+              <label for="tipoDocument">Seleccione su tipo de documento</label>
+              <select class="form-control" name="tipoDocument">
+                <option>DNI</option>
+                <option>PASAPORTE</option>
+                <option>RUC</option>
+              </select>
+            </div>
+          <div class="form-group">
+          <label for="nroDocumento">Numero de documento</label><input name="nroDocumento" id="nroDocumento" type="number" class="form-control" placeholder="Ingrese su numero de documento" required>
+          </div>
+          <div class="form-group">
+              <label for="fechaNacimiento">Fecha de nacimiento</label>
+              <input name="fechaNacimiento" id="fechaNacimiento" type="date" class="form-control" required>
+          </div>
+          <div class="form-group">
+               <label for="direccion">Direccion</label>
+               <input name="direccion" id="direccion" type="text" class="form-control" placeholder="Ingrese su direccion" required>
+          </div>
+          <br><br>
+
+          <div class="form-group">
+                         <h3 align="center">Contactos para ingresar </h3>
+                         <label for="nombreContacto1">Nombre de contacto </label>
+                         <input name="nombreContacto1" id="nombreContacto1" type="text" class="form-control" placeholder="Ingrese el nombre de contacto" required>
+
+                         <label for="telefonoContacto1">Telefono </label>
+                         <input name="telefonoContacto1" id="telefonoContacto1" type="number" class="form-control" placeholder="Ingrese el nombre de contacto" required>
+
+                         <label for="mailContacto1">Mail </label>
+                         <input name="mailContacto1" id="mailContacto1" type="email" class="form-control" placeholder="Ingrese el nombre de contacto" required>
+                         <br>
+
+
+                         <label for="nombreContacto2">Nombre de contacto </label>
+                         <input name="nombreContacto2" id="nombreContacto2" type="text" class="form-control" placeholder="Ingrese el nombre de contacto" required>
+
+                         <label for="telefonoContacto2">Telefono </label>
+                         <input name="telefonoContacto2" id="telefonoContacto2" type="number" class="form-control" placeholder="Ingrese el nombre de contacto" required>
+
+                         <label for="mailContacto2">Mail </label>
+                         <input name="mailContacto2" id="mailContacto2" type="email" class="form-control" placeholder="Ingrese el nombre de contacto" required>
+          </div>
+
+
+          <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+        </form>
+        <script>
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementsByName("fechaNacimiento")[0].setAttribute('max', today);
+       </script>
+{{/partial}}
+
+{{> layout.html.hbs }}

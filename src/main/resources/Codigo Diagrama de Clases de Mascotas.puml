@@ -1,0 +1,254 @@
+@startuml
+abstract Usuario{
+String nombre
+String pass
+}
+
+class Administrador{
+agregarCaracteristica(Caracteristica caracteristica)
+}
+
+Administrador...>RepoCaracteristica
+Administrador..|>Usuario
+
+class Duenio{
+String NombreYUsuario
+LocalDate fechaNacimiento
+TipoDocumento tipoDocumento
+int nroDocumento
+String direccion
+Contacto contacto
+
+registrarMascota(Mascota mascota)
+-darDeAlta()
+}
+
+Duenio-->Contacto
+Duenio..>RepoDuenio
+Duenio-->Mascota
+Duenio..|>Usuario
+Duenio-->TipoDocumento
+
+enum TipoDocumento{
+DNI,
+PASAPORTE,
+RUC
+}
+
+class Contacto{
+String NombreYApellido
+Integer telefono
+String email
+}
+
+class Mascota{
+Chapita chapita
+TipoDeMascota tipo
+String nombre
+String apodo
+int edadAprox
+Boolean esMacho
+String descFisica
+List<Foto> fotos
+List<Caracterista> caracteristicas
+String chapita
+}
+
+Mascota-->TipoDeMascota
+Mascota-->Caracteristica
+Mascota..>RepoCaracteristica
+
+enum TipoDeMascota{
+PERRO,
+GATO
+}
+
+
+class RepoCaracteristica << (S,#FF7700)>>{
+List<Caracterista> caracteristicas
+agregarCaracteristica(Caracteristica caracteristica)
+comprobarQueExisteCaracteristica(Caracteristica caracteristica)
+}
+
+RepoCaracteristica-->"*"Caracteristica
+
+class Caracteristica{
+String descripcion
+}
+
+class RepoDuenio << (S,#FF7700)>>{
+List<Duenio> duenios
+agregarDuenio(Duenio duenio)
+}
+
+RepoDuenio-->"*"Duenio
+
+class RepoRescate<<(S,#FF7700)>>{
+List<Rescate> rescate
+agregarRescate(Rescate rescate)
+listarMascotasEncontradasUltimo10Dias()
+}
+
+RepoRescate-->"*"Rescate
+Rescate..>RepoRescate
+
+class Rescate{
+ParticipanteRescate rescatista
+AnimalPerdido animalPerdido
+LocalDate fecha
+notificarDuenio()
+}
+
+Rescate-->ParticipanteRescate
+Rescate-->AnimalPerdido
+Rescate..>RepoDuenio
+
+class ParticipanteRescate{
+String nombreYApellido
+LocalDate fechaNacimiento
+TipoDocumento tipoDocumento
+int nroDocumento
+String Direccion
+Contacto contacto
+}
+
+ParticipanteRescate-->Contacto
+ParticipanteRescate-->TipoDocumento
+
+class AnimalPerdido{
+Chapita chapita
+List<Image> fotos
+String descEstado
+Lugar lugar
+int posX
+int posY
+String chapita
+}
+
+class RescateSinChapita{
+ParticipanteRescate rescatista
+AnimalPerdido animalPerdido
+aprobar(asociacion)
+}
+
+RescateSinChapita--> ParticipanteRescate
+RescateSinChapita--> AnimalPerdido
+RescateSinChapita..> Asociacion
+RescateSinChapita..> PublicacionAprobada
+
+class PublicacionAprobada{
+ ParticipanteRescate rescatista
+ ParticipanteRescate duenioReclamante
+ AnimalPerdido animalPerdido
+ rellenarFormularioDuenio(duenioReclamante)
+}
+
+PublicacionAprobada --> "2" ParticipanteRescate
+PublicacionAprobada --> AnimalPerdido
+PublicacionAprobada ..> Notificacion
+
+class RepoPublicacionAprobada<< (S,#FF7700)>>{
+void agregarPublicacion(publicacionAprobada)
+List<PublicacionAprobada> darPublicaciones()
+}
+RepoPublicacionAprobada-->"*" PublicacionAprobada
+
+class Asociacion{
+int posX
+int posY
+List<PublicacionAprobada> publicacionesAprobadas
+List<String> preguntasAdopcion
+List<Adopcion> adopciones
+List<Adoptante> adoptantes
+agregarPublicacion()
+distanciaAnimal(animalPerdido)
+notificarAdoptantes()
+}
+
+Asociacion --> "*" Adopcion
+Asociacion --> "*" Adoptante
+
+class RepoAsociacion << (S,#FF7700)>>{
+List<Asociacion> asociacionesVinculadas
+int asociacionMasCercanaAUbicacion(AnimalPerdido animal)
+}
+RepoAsociacion-->"*"Asociacion
+
+interface Notificacion{
+void notificarMascotaEncontrada(AnimalPerdido mascotaEncontrada, List<Contacto> contactosAnotificar)
+void notificarRescatistaDuenioEncontrado(String contactosDuenio, List<Contacto> contactosAnotificar)
+}
+Notificacion<.. Rescate
+Notificacion<|.. NotificacionPorCorreo
+Notificacion<|.. NotificacionPorSMS
+
+class Voluntario{
+ Asociacion asociacionAsignada
+ void aprobarPublicacion(RescateSinChapita publicacion)
+ void validacionInterna(RescateSinChapita rescateSinChapita)
+ void validarAsociacionAsignada(RescateSinChapita rescateSinChapita)
+}
+
+Voluntario..> RescateSinChapita
+Voluntario..> RepoAsociacion
+
+class RepoRescateSinChapita<< (S,#FF7700)>>{
+agregarRescateSinChapita(rescateSinChapita)
+}
+
+RepoRescateSinChapita-->"*"RescateSinChapita
+
+class ApiRefugioDDS{
+getHogares()
+}
+
+class RecomendadorHogares{
+ApiRefugiosDDS apiRefugios
+List<Hogar> hogares
+}
+
+RecomendadorHogares--> ApiRefugioDDS
+RecomendadorHogares-->"*" Hogar
+
+class Hogar{
+String nombre
+double posX
+double posY
+TipoAnimalesPermitidos tipoAnimalesPermitidos
+boolean aceptaPorDisponibilidad
+boolean poseePatio
+List<String> caracteristicasHogar = new ArrayList<String>()
+}
+
+class Adopcion{
+String identificador
+List<Contacto> contactos
+List<Detalle> detalles
+darDescripcionAdopcion()
+notificarPorInteresado(String contactos)
+}
+
+Adopcion -->"*" Contacto
+Adopcion -->"*" Detalle
+Adopcion <|.. AdopcionDuenio
+Adopcion ..> RepoNotificacion
+
+class RepoNotificacion<< (S,#FF7700)>>{
+}
+RepoNotificacion --> "*" Notificacion
+
+class Adoptante{
+List<Detalle> detalles
+String email
+notificarPublicacionesCoincidentes(List<Adopcion> adopciones)
+}
+Adoptante --> "*" Detalle
+Adoptante ..> RepoNotificacion
+
+class Detalle{
+String pregunta
+String respuesta
+noPresentoDiscrepanciaCon(detalleList)
+soyCoincidenteCon(detalleList)
+}
+@enduml

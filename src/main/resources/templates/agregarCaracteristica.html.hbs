@@ -1,0 +1,101 @@
+{{#partial "titulo"}}
+
+<script type="text/javascript">
+
+  function cambioTipoCaracteristica() {
+    var selectBox = document.getElementById("tipoCaracteristica");
+    var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+    if (selectedValue == 'V') {
+      document.getElementById("cargaValores").style.visibility = 'visible';
+    } else {
+      document.getElementById("cargaValores").style.visibility = 'hidden';
+    }
+  }
+  var numero = 1;
+  function addValorCaracteristica() {
+    if (numero => 1) {
+      numero++;
+      var node = document.createElement("li");
+      var contenido =
+        '<input type="text" class="form-control" placeholder="Caracteristica" name="caracteristica' + numero + '">';
+      node.innerHTML = contenido;
+      document.getElementById("caracteristicas").appendChild(node);
+      var cantNumeros = document.getElementById("cantNumeros");
+      cantNumeros.value = numero;
+    } else {
+      numero++;
+      var cantNumeros = document.getElementById("cantNumeros");
+      cantNumeros.value = numero;
+    }
+  }
+  function removeValorCaracteristica() {
+    if (numero <= 1) {
+      numero = 1;
+      var cantNumeros = document.getElementById("cantNumeros");
+      cantNumeros.value = numero;
+    } else {
+      numero--;
+      var select = document.getElementById("caracteristicas");
+      select.removeChild(select.lastElementChild);
+    }
+  }
+
+</script>
+
+<title>Agregar Caracteristica</title>
+{{/partial}}
+
+{{#partial "contenido"}}
+<h2 align="center">Agregar Caracteristicas</h2>
+
+<form name="agregarCaracteristica" class="formulario border p-5" action="/agregarCaracteristica" method="post">
+
+  <div class="card mt-3">
+
+    <div class="card-header">
+      Caracteristica
+    </div>
+    <div class="card-body">
+      <div class="form-group">
+        <input name="nombreCaracteristica" id="nombreCaracteristica" type="text" class="form-control"
+          placeholder="Nombre de Caracteristica" required />
+      </div>
+      <div class="form-group">
+        <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="tipoCaracteristica"
+          id="tipoCaracteristica" onchange="cambioTipoCaracteristica();">
+          <option value="B">Booleana</option>
+          <option value="V">Con valores</option>
+        </select>
+      </div>
+      <input type="hidden" name="cantNumeros" id="cantNumeros" value="1"></input>
+      <div class="form-group" id="cargaValores" style="visibility:hidden;">
+        <ul id="caracteristicas">
+          <li>
+            <input type="text" class="form-control" placeholder="Caracteristica" name="caracteristica1">
+          </li>
+        </ul>
+        <button type="button" class="btn btn-primary m-2" onclick="addValorCaracteristica()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle"
+            viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+            <path
+              d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z">
+            </path>
+          </svg>
+          Caracteristica
+        </button>
+        <button type="button" class="btn btn-outline-danger" onclick="removeValorCaracteristica()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-dash-circle-fill" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"></path>
+          </svg>
+          Caracteristica
+        </button>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+</form>
+
+{{/partial}}
+
+{{> layout.html.hbs }}

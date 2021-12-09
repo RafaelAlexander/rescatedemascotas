@@ -1,0 +1,88 @@
+{{#partial "titulo"}}
+<title>Quiero registrar mi Mascota</title>
+{{/partial}}
+
+{{#partial "contenido"}}
+<h2 align="center">Quiero registrar mi Mascota</h2>
+<h4 align="center">Complete los datos de su mascota</h4>
+<form name="registrarMascota-form" class="registrarMascota-form formulario" action="/registrarMascota" method="post"
+  enctype='multipart/form-data'>
+
+  <div class="form-group">
+    <label for="nombreMascota">Nombre</label><input name="nombreMascota" id="nombreMascota" type="text"
+      class="form-control" placeholder="Ingrese nombre de su mascota">
+  </div>
+
+  <div class="form-group">
+    <label for="apodoMascota">Apodo</label><input name="apodoMascota" id="apodoMascota" type="text" class="form-control"
+      placeholder="Ingrese apodo de su mascota">
+  </div>
+
+  <div class="form-group">
+    <label for="edadMascota">Edad aproximada</label><input name="edadMascota" id="edadMascota" type="number"
+      class="form-control" placeholder="Ingrese edad aproximada">
+  </div>
+
+  <div class="form-group">
+    <label for="descripcionMascota">Descripcion fisica</label><input name="descripcionMascota" id="descripcionMascota"
+      type="text" class="form-control" placeholder="Ingrese descripcion fisica">
+  </div>
+
+  <div class="form-group">
+    <label for="tipoMascota">Seleccione el tipo de mascota</label>
+    <select class="form-control" name="tipoMascota">
+      <option>GATO</option>
+      <option>PERRO</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="sexoMascota">Seleccione el sexo de la mascota</label>
+    <select class="form-control" name="sexoMascota">
+      <option>MACHO</option>
+      <option>HEMBRA</option>
+      <option>NO SE SABE</option>
+    </select>
+  </div>
+
+  <br>
+  <br>
+  <h2 align="center">CARACTERISTICAS</h2>
+
+  <div class="form-group">
+    {{#each caracteristicasDisponibles}}
+    <div>
+      <label for="{{descripcion}}">{{descripcion}}</h3>
+        <select class="form-control" name="{{descripcion}}">
+          {{#each valores}}
+          <option>{{this}}</option>
+          {{/each}}
+        </select>
+    </div>
+    {{/each}}
+  </div>
+
+  <div class="card mt-3">
+    <div class="card-header">Subir fotos de la mascota:
+    </div>
+
+    <div class="card-body">
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="fotoMascota" lang="es" name="fotoMascota" required>
+        <label id="foto" class="custom-file-label" for="fotoMascota" >Seleccionar Archivo</label>
+      </div>
+    </div>
+  </div> <br>
+
+  <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+</form>
+<script>
+    const selectElement = document.querySelector('#fotoMascota');
+
+    selectElement.addEventListener('change', (event) => {
+        document.getElementById("foto").textContent=event.target.files[0].name;
+    });
+</script>
+{{/partial}}
+
+{{> layout.html.hbs }}

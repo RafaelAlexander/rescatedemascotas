@@ -1,0 +1,147 @@
+{{#partial "titulo"}}
+<title>Registrar Rescate</title>
+{{/partial}}
+
+{{#partial "contenido"}}
+<h2>Registrar Rescate</h2>
+<form name="registrarRescateChapita" class="formulario border p-5" action="/rescate" method="post"
+  enctype='multipart/form-data'>
+  <div class="card">
+    <div class="card-header">
+      Nombre completo y dirección:
+    </div>
+    <div class="card-body">
+      <div class="form-group">
+        {{#if nombre}}
+        <input placeholder="Nombre" class="form-control" type="text" name="nombre" value={{nombre}} required>
+        {{else}}
+        <input placeholder="Nombre" class="form-control" type="text" name="nombre" required>
+        {{/if}}
+      </div>
+      <div class="form-group">
+        {{#if apellido}}
+        <input placeholder="Apellido" class="form-control" type="text" name="apellido" value={{apellido}} required>
+        {{else}}
+        <input placeholder="Apellido" class="form-control" type="text" name="apellido" required>
+        {{/if}}
+      </div>
+      <div class="form-group">
+        {{#if direccion}}
+        <input placeholder="Dirección" class="form-control" type="text" name="direccion" value={{direccion}} required>
+        {{else}}
+        <input placeholder="Dirección" class="form-control" type="text" name="direccion" required>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  <div class="card mt-3">
+    <div class="card-header">Contacto:
+    </div>
+    <div class="card-body">
+      <div class="form-group">
+        {{#if email}}
+        <input type="email" class="form-control" placeholder="E-mail" name="email" value={{email}} required>
+        {{else}}
+        <input type="email" class="form-control" placeholder="E-mail" name="email" required>
+        {{/if}}
+      </div>
+      <div class="form-group">
+        {{#if telefono}}
+        <input type="number" class="form-control" placeholder="Teléfono" name="telefono" value={{telefono}} required>
+        {{else}}
+        <input type="number" class="form-control" placeholder="Teléfono" name="telefono" required>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  <div class="card mt-3">
+    <div class="card-header">
+      Fecha de Nacimiento:
+    </div>
+    <div class="card-body">
+      <div class="form-group">
+        {{#if fechaNacimiento}}
+        <input type="date" class="form-control" name="fechaNacimiento" value={{fechaNacimiento}} required>
+        {{else}}
+        <input type="date" class="form-control" name="fechaNacimiento" required>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  <div class="card mt-3">
+    <div class="card-header">
+      Documento:
+    </div>
+    <div class="card-body">
+      <label class="my-1 mr-2" for="tipoDocumento">Seleccione su tipo de documento</label>
+      {{#if tipoDocumento}}
+      <select class="custom-select my-1 mr-sm-2" name="tipoDocumento" value={{tipoDocumento}} required>
+        {{else}}
+        <select class="custom-select my-1 mr-sm-2" name="tipoDocumento" required>
+          {{/if}}
+          <option value="DNI">DNI</option>
+          <option value="PASAPORTE">PASAPORTE</option>
+          <option value="RUC">RUC</option>
+        </select>
+        <div class="form-group">
+          {{#if nroDocumento}}
+          <input placeholder="número de documento" type="number" class="form-control" name="nroDocumento"
+            value={{nroDocumento}} required>
+          {{else}}
+          <input placeholder="número de documento" type="number" class="form-control" name="nroDocumento" required>
+          {{/if}}
+        </div>
+    </div>
+  </div>
+  <div class="card mt-3">
+    <div class="card-header">
+      Animal perdido:
+    </div>
+    <div class="card-body">
+      <input type="checkbox" name="checkChapita" data-toggle="collapse" data-target="#divChapita" aria-expanded="false" aria-controls="divChapita">
+      <label>Tiene Chapita</label>
+      <div class="form-group collapse" id="divChapita">
+        <input placeholder="Chapita" type="text" class="form-control" name="chapita">
+      </div>
+      <div class="md-form">
+        <textarea id="form10" class="md-textarea form-control" rows="3" placeholder="Estado del animal"
+          name="descripcion" required></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="card mt-3">
+    <div class="card-header">Posición de encuentro:
+    </div>
+    <div class="card-body">
+      <div class="form-group">
+        <input type="number" placeholder="Posición X" class="form-control" name="posicionX" required>
+      </div>
+      <div class="form-group">
+        <input type="number" placeholder="Posición Y" class="form-control" name="posicionY" required>
+      </div>
+    </div>
+  </div>
+  <div class="card mt-3">
+    <div class="card-header">Subir fotos del animal:
+    </div>
+    <div class="card-body">
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="foto" lang="es" name="foto" required>
+        <label id="fotoMascota" class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+</form>
+<script>
+        const selectElement = document.querySelector('#foto');
+        selectElement.addEventListener('change', (event) => {
+        document.getElementById("fotoMascota").textContent=event.target.files[0].name;
+        });
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementsByName("fechaNacimiento")[0].setAttribute('max', today);
+</script>
+{{/partial}}
+
+{{> layout.html.hbs }}

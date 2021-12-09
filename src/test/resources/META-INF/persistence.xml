@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+    http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+
+    <persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
+
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <class>ar.edu.utn.frba.dds.dominio.Roles.Usuario</class>
+        <class>ar.edu.utn.frba.dds.dominio.Roles.Administrador</class>
+        <class>ar.edu.utn.frba.dds.dominio.Roles.Voluntario</class>
+        <class>ar.edu.utn.frba.dds.dominio.MascotaYDuenio.Duenio</class>
+        <class>ar.edu.utn.frba.dds.dominio.MascotaYDuenio.Mascota</class>
+        <class>ar.edu.utn.frba.dds.dominio.MascotaYDuenio.Caracteristica</class>
+        <class>ar.edu.utn.frba.dds.dominio.MascotaYDuenio.Contacto</class>
+        <class>ar.edu.utn.frba.dds.dominio.Adopcion.Adopcion</class>
+        <class>ar.edu.utn.frba.dds.dominio.Adopcion.AdopcionDuenio</class>
+        <class>ar.edu.utn.frba.dds.dominio.Adopcion.Adoptante</class>
+        <class>ar.edu.utn.frba.dds.dominio.Adopcion.Detalle</class>
+		<class>ar.edu.utn.frba.dds.dominio.Rescate.PublicacionAprobada</class>
+		<class>ar.edu.utn.frba.dds.dominio.Rescate.Rescate</class>
+        <class>ar.edu.utn.frba.dds.dominio.Rescate.AnimalPerdido</class>
+        <class>ar.edu.utn.frba.dds.dominio.Rescate.ParticipanteRescate</class>
+        <class>ar.edu.utn.frba.dds.dominio.Rescate.Asociacion</class>
+        <class>ar.edu.utn.frba.dds.dominio.Rescate.RescateSinChapita</class>
+        <class>ar.edu.utn.frba.dds.dominio.MascotaYDuenio.Foto</class>
+        <class>ar.edu.utn.frba.dds.dominio.MascotaYDuenio.DatosPersonales</class>
+		
+        <properties>
+            <property name="hibernate.archive.autodetection" value="class"/>
+
+            <!--property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"
+                /> <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/prueba"
+                /> <property name="hibernate.connection.username" value="root" /> <property
+                name="hibernate.connection.password" value="mysql" / -->
+
+            <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver"/>
+            <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:app-db"/>
+            <property name="hibernate.connection.username" value="sa"/>
+            <property name="hibernate.connection.password" value=""/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
+
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="use_sql_comments" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+
+        </properties>
+
+    </persistence-unit>
+
+</persistence> 
