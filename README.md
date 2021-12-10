@@ -1,6 +1,12 @@
 # java-base-project
 
 - Pagina de heroku: https://centroderescate.herokuapp.com/
+- Usuario administrador: 
+User:admin
+Password:Administrador2021
+- Usuario duenio solo:
+User:duenioMascota
+Password:DuenioMascota2021
 
 Esta es una plantilla de proyecto diseñada para:
 
